@@ -3,8 +3,8 @@ package machinery_test
 import (
 	"testing"
 
-	machinery "github.com/RichardKnop/machinery/v1"
-	"github.com/RichardKnop/machinery/v1/signatures"
+	machinery "github.com/mo4islona/machinery/v1"
+	"github.com/mo4islona/machinery/v1/signatures"
 	"github.com/stretchr/testify/assert"
 )
 

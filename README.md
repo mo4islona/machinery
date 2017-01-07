@@ -3,7 +3,7 @@
 
 [![Codeship Status for RichardKnop/go-oauth2-server](https://codeship.com/projects/35dc5880-71a7-0133-ec05-06b1c29ec1d7/status?branch=master)](https://codeship.com/projects/116440)
 
-[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/RichardKnop/machinery/v1)
+[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/mo4islona/machinery/v1)
 [![Travis Status for RichardKnop/machinery](https://travis-ci.org/RichardKnop/machinery.svg?branch=master)](https://travis-ci.org/RichardKnop/machinery)
 
 # Machinery
@@ -38,7 +38,7 @@ So called tasks (or jobs if you like) are executed concurrently either by many w
 Add the Machinery library to your $GOPATH/src:
 
 ```
-go get github.com/RichardKnop/machinery/v1
+go get github.com/mo4islona/machinery/v1
 ```
 
 First, you will need to define some tasks. Look at sample tasks in `examples/tasks/tasks.go` to see a few examples.
@@ -159,7 +159,7 @@ For example:
 
 1. `amqp://guest:guest@localhost:5672`
 
-> Keep in mind AMQP is not recommended as a result backend. See [Keeping Results](https://github.com/RichardKnop/machinery#keeping-results)
+> Keep in mind AMQP is not recommended as a result backend. See [Keeping Results](https://github.com/mo4islona/machinery#keeping-results)
 
 #### MongoDB
 
@@ -219,7 +219,7 @@ type Interface interface {
 }
 ```
 
-Then just set the logger in your setup code by calling `Set` function exported by `github.com/RichardKnop/machinery/logger` package:
+Then just set the logger in your setup code by calling `Set` function exported by `github.com/mo4islona/machinery/logger` package:
 
 ```go
 logger.Set(myCustomLogger)
@@ -231,8 +231,8 @@ A Machinery library must be instantiated before use. The way this is done is by 
 
 ```go
 import (
-  "github.com/RichardKnop/machinery/v1/config"
-  machinery "github.com/RichardKnop/machinery/v1"
+  "github.com/mo4islona/machinery/v1/config"
+  machinery "github.com/mo4islona/machinery/v1"
 )
 
 var cnf = config.Config{
@@ -413,7 +413,7 @@ Tasks can be called by passing an instance of `TaskSignature` to an `Server` ins
 
 ```go
 import (
-  "github.com/RichardKnop/machinery/v1/signatures"
+  "github.com/mo4islona/machinery/v1/signatures"
 )
 
 task := signatures.TaskSignature{
@@ -532,8 +532,8 @@ Running a single asynchronous task is fine but often you will want to design a w
 
 ```go
 import (
-  "github.com/RichardKnop/machinery/v1/signatures"
-  machinery "github.com/RichardKnop/machinery/v1"
+  "github.com/mo4islona/machinery/v1/signatures"
+  machinery "github.com/mo4islona/machinery/v1"
 )
 
 task1 := signatures.TaskSignature{
@@ -591,8 +591,8 @@ for _, asyncResult := range asyncResults {
 
 ```go
 import (
-  "github.com/RichardKnop/machinery/v1/signatures"
-  machinery "github.com/RichardKnop/machinery/v1"
+  "github.com/mo4islona/machinery/v1/signatures"
+  machinery "github.com/mo4islona/machinery/v1"
 )
 
 task1 := signatures.TaskSignature{
@@ -665,8 +665,8 @@ fmt.Println(result.Interface())
 
 ```go
 import (
-  "github.com/RichardKnop/machinery/v1/signatures"
-  machinery "github.com/RichardKnop/machinery/v1"
+  "github.com/mo4islona/machinery/v1/signatures"
+  machinery "github.com/mo4islona/machinery/v1"
 )
 
 task1 := signatures.TaskSignature{

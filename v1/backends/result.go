@@ -5,8 +5,8 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/RichardKnop/machinery/v1/signatures"
-	"github.com/RichardKnop/machinery/v1/utils"
+	"github.com/mo4islona/machinery/v1/signatures"
+	"github.com/mo4islona/machinery/v1/utils"
 )
 
 // AsyncResult represents a task result

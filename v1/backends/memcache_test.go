@@ -5,9 +5,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/RichardKnop/machinery/v1/backends"
-	"github.com/RichardKnop/machinery/v1/config"
-	"github.com/RichardKnop/machinery/v1/signatures"
+	"github.com/mo4islona/machinery/v1/backends"
+	"github.com/mo4islona/machinery/v1/config"
+	"github.com/mo4islona/machinery/v1/signatures"
 	"github.com/stretchr/testify/assert"
 )
 

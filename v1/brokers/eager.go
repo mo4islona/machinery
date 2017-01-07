@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/RichardKnop/machinery/v1/signatures"
+	"github.com/mo4islona/machinery/v1/signatures"
 )
 
 // EagerBroker represents an "eager" in-memory broker

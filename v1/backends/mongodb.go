@@ -7,8 +7,8 @@ import (
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 
-	"github.com/RichardKnop/machinery/v1/config"
-	"github.com/RichardKnop/machinery/v1/signatures"
+	"github.com/mo4islona/machinery/v1/config"
+	"github.com/mo4islona/machinery/v1/signatures"
 )
 
 // MongodbBackend represents a MongoDB result backend
@@ -103,7 +103,11 @@ func (m *MongodbBackend) SetStatePending(signature *signatures.TaskSignature) er
 
 // SetStateReceived - sets task state to RECEIVED
 func (m *MongodbBackend) SetStateReceived(signature *signatures.TaskSignature) error {
-	update := bson.M{"state": ReceivedState}
+	update := bson.M{
+		"state": ReceivedState,
+		"args":  signature.Args,
+	}
+
 	return m.setState(signature, update)
 }
 
@@ -121,6 +125,7 @@ func (m *MongodbBackend) SetStateSuccess(signature *signatures.TaskSignature, re
 			"type":  result.Type,
 			"value": result.Value,
 		},
+		"processedAt": time.Now(),
 	}
 	return m.setState(signature, update)
 }
@@ -159,9 +164,13 @@ func (m *MongodbBackend) PurgeGroupMeta(groupUUID string) error {
 
 func (m *MongodbBackend) setState(signature *signatures.TaskSignature, update bson.M) error {
 	newTask := bson.M{
-		"group_uuid": signature.GroupUUID,
 		"createdAt":  time.Now(),
 	}
+
+	if len(signature.GroupUUID) > 0 {
+		newTask["group_uuid"] = signature.GroupUUID
+	}
+
 	_, err := m.mongoCollection.Upsert(bson.M{"_id": signature.UUID}, bson.M{"$set": update, "$setOnInsert": newTask})
 	if err != nil {
 		return err
@@ -174,8 +183,8 @@ func createMongoIndexes(collection *mgo.Collection, conf *config.Config) error {
 		Key: []string{"group_uuid"},
 	}
 	indexCreatedAt := mgo.Index{
-		Key:         []string{"createdAt"},
-		ExpireAfter: time.Duration(conf.ResultsExpireIn) * time.Second,
+		Key: []string{"createdAt"},
+		//ExpireAfter: time.Duration(conf.ResultsExpireIn) * time.Second,
 	}
 
 	var err error
@@ -207,11 +216,12 @@ func createMongoIndexes(collection *mgo.Collection, conf *config.Config) error {
 
 type mongodbTask struct {
 	TaskUUID   string            `bson:"_id"`
-	GroupUUID  string            `bson:"group_uuid"`
+	GroupUUID  string            `bson:"group_uuid,omitempty"`
 	CreateTime time.Time         `bson:"createdAt"`
+	ProcessTime time.Time        `bson:"processedAt,omitempty"`
 	State      string            `bson:"state"`
 	Result     mongodbTaskResult `bson:"result"`
-	Error      string            `bson:"error"`
+	Error      string            `bson:"error,omitempty"`
 }
 
 func (m *mongodbTask) TaskState() *TaskState {

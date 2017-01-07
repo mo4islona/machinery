@@ -6,10 +6,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/RichardKnop/machinery/v1/config"
-	"github.com/RichardKnop/machinery/v1/logger"
-	"github.com/RichardKnop/machinery/v1/signatures"
-	"github.com/RichardKnop/machinery/v1/utils"
+	"github.com/mo4islona/machinery/v1/config"
+	"github.com/mo4islona/machinery/v1/logger"
+	"github.com/mo4islona/machinery/v1/signatures"
+	"github.com/mo4islona/machinery/v1/utils"
 	"github.com/garyburd/redigo/redis"
 )
 
