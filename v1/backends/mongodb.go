@@ -19,18 +19,17 @@ type MongodbBackend struct {
 
 // NewMongodbBackend creates MongodbBackend instance
 func NewMongodbBackend(conf *config.Config) (Backend, error) {
-	session, err := mgo.Dial(conf.ResultBackend)
+	dialInfo, err := mgo.ParseURL(conf.ResultBackend)
 	if err != nil {
 		return nil, err
 	}
 
-	dbName := "tasks"
-	splitConnection := strings.Split(conf.ResultBackend, "/")
-	if len(splitConnection) == 4 {
-		dbName = splitConnection[3]
+	session, err := mgo.DialWithInfo(dialInfo)
+	if err != nil {
+		return nil, err
 	}
 
-	mongoCollection := session.DB(dbName).C("tasks")
+	mongoCollection := session.DB(dialInfo.Database).C("tasks")
 
 	err = createMongoIndexes(mongoCollection, conf)
 	if err != nil {
@@ -42,6 +41,7 @@ func NewMongodbBackend(conf *config.Config) (Backend, error) {
 		mongoCollection: mongoCollection,
 	}), nil
 }
+
 
 // Group related functions
 
